@@ -1,3 +1,8 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable semi */
+/* eslint-disable array-bracket-spacing */
+/* eslint-disable comma-dangle */
+/* eslint-disable comma-spacing */
 /* eslint valid-jsdoc: "off" */
 'use strict';
 
@@ -17,15 +22,17 @@ module.exports = appInfo => {
 
 
   // add your middleware config here
-  config.middleware = [ 'errorHandler' ];
-
+  config.middleware = [ 'errorHandler','auth'];
 
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
   };
 
-
+  config.auth = {
+    match: ['/api/live/create'],
+  };
+  
   config.security = {
     // 关闭 csrf
     csrf: {
@@ -92,6 +99,25 @@ module.exports = appInfo => {
       host: '127.0.0.1', // Redis host
       password: '',
       db: 2,
+    },
+  };
+  // 流媒体配置
+  config.mediaServer = {
+    rtmp: {
+      port: 23480,
+      chunk_size: 60000,
+      gop_cache: true,
+      ping: 30,
+      ping_timeout: 60,
+    },
+    http: {
+      port: 23481,
+      allow_origin: '*',
+    },
+    auth: {
+      play: true,
+      publish: true,
+      secret: 'nodemedia2017privatekey',
     },
   };
 
