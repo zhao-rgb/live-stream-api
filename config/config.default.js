@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable semi */
 /* eslint-disable array-bracket-spacing */
@@ -5,6 +6,8 @@
 /* eslint-disable comma-spacing */
 /* eslint valid-jsdoc: "off" */
 'use strict';
+const NodeMediaServer = require('node-media-server');
+
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -120,7 +123,9 @@ module.exports = appInfo => {
       secret: 'nodemedia2017privatekey',
     },
   };
-
+  var nms = new NodeMediaServer(config.mediaServer)
+  nms.run();
+  
   return {
     ...config,
     ...userConfig,
