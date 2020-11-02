@@ -46,6 +46,47 @@ class LiveController extends Controller {
     });
   }
 
+  // 修改直播间状态
+  async changeStatus() {
+    const { ctx, app } = this;
+    const user_id = ctx.authUser.id;
+    // 参数校验
+    ctx.validate({
+      id: {
+        type: 'int',
+        required: true,
+        desc: '直播间ID',
+      },
+      type: {
+        type: 'string',
+        required: true,
+        range: {
+          in: [ 'play', 'pause', 'stop' ],
+        },
+      },
+    });
+    const { id, type } = ctx.request.body;
+    const live = await app.model.Live.findOne({
+      where: {
+        id,
+        user_id,
+      },
+    });
+    if (!live) {
+      return ctx.apiFail('该直播间不存在');
+    }
+    if (live.status === 3) {
+      return ctx.apiFail('该直播间已结束');
+    }
+    const status = {
+      play: 1,
+      pause: 2,
+      stop: 3,
+    };
+    live.status = status[type];
+    await live.save();
+    ctx.apiSuccess('ok');
+  }
 
   // 生成签名
   sign(key) {

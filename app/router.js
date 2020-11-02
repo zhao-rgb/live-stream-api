@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 'use strict';
+
+const live = require('./model/live');
 
 /**
  * @param {Egg.Application} app - egg application
@@ -15,5 +18,7 @@ module.exports = app => {
   // 退出登录
   router.post('/api/logout', controller.api.user.logout);
   // 获取当前用户信息
-  router.post('/api/user/info', controller.api.user.info);
+  router.get('/api/user/info', controller.api.user.info);
+  // 修改直播间状态
+  router.post('/api/live/changestatus', controller.api.live.changeStatus);
 };
