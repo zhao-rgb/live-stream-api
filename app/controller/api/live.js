@@ -88,6 +88,26 @@ class LiveController extends Controller {
     ctx.apiSuccess('ok');
   }
 
+  // 直播间列表，带分页
+  async list() {
+    const { ctx, app } = this;
+    ctx.validate({
+      page: {
+        required: true,
+        desc: '页码',
+        type: 'int',
+      },
+    });
+    const page = ctx.params.page;
+    const limit = 10;
+    const offset = (page - 1) * limit;
+    const rows = await app.model.Live.findAll({
+      limit,
+      offset,
+    });
+    ctx.apiSuccess(rows);
+  }
+
   // 生成签名
   sign(key) {
     const { ctx, app } = this;
