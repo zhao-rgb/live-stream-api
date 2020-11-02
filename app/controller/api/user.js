@@ -1,4 +1,7 @@
+/* eslint-disable prefer-const */
 'use strict';
+
+const await = require('await-stream-ready/lib/await');
 
 
 const Controller = require('egg').Controller;
@@ -121,6 +124,18 @@ class UserController extends Controller {
 
 
     ctx.apiSuccess(user);
+  }
+
+  // 退出登录
+  async logout() {
+    const { ctx, service } = this;
+    let current_use_id = ctx.authUser.id;
+
+    if (!(await service.cache.remove('user_' + current_use_id))) {
+      ctx.throw(400, '退出登录失败');
+    }
+    ctx.apiSuccess('ok');
+
   }
 }
 
