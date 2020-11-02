@@ -33,7 +33,7 @@ module.exports = appInfo => {
   };
 
   config.auth = {
-    match: ['/api/live/create','/api/logout','/api/user/info','/api/live/changestatus','/api/live/list/:page'],
+    match: ['/api/live/create','/api/logout','/api/user/info','/api/live/changestatus','/api/live/list/:page','/api/live/read/:id'],
   };
   
   config.security = {
