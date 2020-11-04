@@ -12,7 +12,8 @@ module.exports = app => {
   router.get('/', controller.home.index);
 
   // socket路由配置测试
-  io.of('/').route('test', io.controller.nsp.test);
+  // io.of('/').route('test', io.controller.nsp.test);
+  io.of('/').route('joinLive', io.controller.nsp.joinLive);
 
   // 用户注册
   router.post('/api/reg', controller.api.user.reg);
