@@ -33,7 +33,7 @@ module.exports = appInfo => {
   };
 
   config.auth = {
-    match: ['/api/live/create','/api/logout','/api/user/info','/api/live/changestatus','/api/live/list/:page','/api/live/read/:id'],
+    match: ['/api/live/create','/api/logout','/api/user/info','/api/live/changestatus','/api/live/list/:page'],
   };
   
   config.security = {
@@ -102,6 +102,23 @@ module.exports = appInfo => {
       host: '127.0.0.1', // Redis host
       password: '',
       db: 2,
+    },
+  };
+
+  config.io = {
+    init: {
+      wsEngine: 'ws',
+    }, 
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+    },
+    redis: {
+      host: '127.0.0.1', 
+      port: 6379, 
+      db: 0,
     },
   };
   // 流媒体配置

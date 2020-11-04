@@ -7,8 +7,13 @@ const live = require('./model/live');
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, controller, io } = app;
+
   router.get('/', controller.home.index);
+
+  // socket路由配置测试
+  io.of('/').route('test', io.controller.nsp.test);
+
   // 用户注册
   router.post('/api/reg', controller.api.user.reg);
   // 用户登录

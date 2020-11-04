@@ -15,8 +15,8 @@ const config = {
 // 签名模板，注意修改
 const sign = {
   REG_CODE: {
-    SignName: '赵肖龙',
-    TemplateCode: 'SMS_135275229',
+    SignName: '龙龙的直播',
+    TemplateCode: 'SMS_205397647',
   },
 };
 
