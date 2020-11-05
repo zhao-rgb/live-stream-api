@@ -1,19 +1,14 @@
+/* eslint-disable strict */
 /* eslint-disable no-unused-vars */
-'use strict';
+
 module.exports = app => {
   const { STRING, INTEGER, DATE, ENUM, TEXT } = app.Sequelize;
 
-  const Comment = app.model.define('comment', {
+  const LiveGift = app.model.define('Live_gift', {
     id: {
       type: INTEGER(20),
       primaryKey: true,
       autoIncrement: true,
-    },
-    content: {
-      type: TEXT,
-      allowNull: false,
-      defaultValue: '',
-      comment: '评论内容',
     },
     live_id: {
       type: INTEGER,
@@ -39,18 +34,31 @@ module.exports = app => {
       onDelete: 'cascade',
       onUpdate: 'restrict', // 更新时操作
     },
+    gift_id: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      comment: '礼物id',
+      references: {
+        model: 'gift',
+        key: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'restrict', // 更新时操作
+    },
     created_time: DATE,
     updated_time: DATE,
   });
 
-
   // 关联关系
-  Comment.associate = function(models) {
-    // 关联发布人
-    Comment.belongsTo(app.model.User);
+  LiveGift.associate = function(models) {
+    // 关联用户
+    LiveGift.belongsTo(app.model.User);
     // 关联直播间
-    Comment.belongsTo(app.model.Live);
+    LiveGift.belongsTo(app.model.Live);
+    // 关联礼物
+    LiveGift.belongsTo(app.model.Gift);
   };
 
-  return Comment;
+  return LiveGift;
 };
