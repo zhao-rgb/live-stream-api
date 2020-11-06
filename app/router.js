@@ -38,4 +38,7 @@ module.exports = app => {
   router.post('/api/phoneLogin', controller.api.user.phoneLogin);
   // 发送手机验证码
   router.post('/api/sendcode', controller.api.sms.sendCode);
+
+
+  router.get('/test', controller.admin.test.page);
 };
