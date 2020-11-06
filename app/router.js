@@ -41,4 +41,7 @@ module.exports = app => {
 
 
   router.get('/test', controller.admin.test.page);
+  // 新增管理员
+  router.get('/admin/manager/create', controller.admin.manager.create);
+  router.post('/admin/manager', controller.admin.manager.save);
 };
