@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const Controller = require('egg').Controller;
@@ -44,6 +45,15 @@ class ManagerController extends Controller {
 
 
     ctx.apiSuccess(manager);
+  }
+
+  // 管理员列表
+  async index() {
+    const { ctx, app } = this;
+    const data = await ctx.page('Manager');
+    await ctx.render('admin/manager/index.html', {
+      data,
+    });
   }
 }
 
