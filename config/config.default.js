@@ -25,16 +25,25 @@ module.exports = appInfo => {
 
 
   // add your middleware config here
-  config.middleware = [ 'errorHandler','auth'];
+  config.middleware = [ 'errorHandler','auth', 'adminAuth', 'adminSidebar'];
 
-  // add your user config here
-  const userConfig = {
-    // myAppName: 'egg',
-  };
+  config.webUrl = 'http://127.0.0.1:7001'
 
   config.auth = {
     match: ['/api/live/create','/api/logout','/api/user/info','/api/live/changestatus','/api/live/list/:page'],
   };
+
+  config.adminAuth = {
+    ignore: ['/api', '/admin/login', '/admin/loginevent'],
+  }
+  config.adminSidebar = {
+    ignore: ['/api', '/admin/login', '/admin/loginevent', '/public'],
+  }
+  // add your user config here
+  const userConfig = {
+    // myAppName: 'egg',
+  };
+  
   
   config.security = {
     // 关闭 csrf
@@ -53,7 +62,7 @@ module.exports = appInfo => {
     allowMethods: 'GET, PUT, POST, DELETE, PATCH',
   };
 
-
+  // 数据库配置
   config.sequelize = {
     dialect: 'mysql',
     host: '127.0.0.1',
@@ -78,18 +87,18 @@ module.exports = appInfo => {
     },
   };
 
-
+  // 参数校验配置
   config.valparams = {
     locale: 'zh-cn',
     throwError: true,
   };
 
-
+  // 加密密钥
   config.crypto = {
     secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
   };
 
-
+  // jwt配置密钥
   config.jwt = {
     secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
   };
@@ -105,29 +114,6 @@ module.exports = appInfo => {
     },
   };
 
-  config.io = {
-    init: {
-      wsEngine: 'ws',
-    }, 
-    namespace: {
-      '/': {
-        connectionMiddleware: [],
-        packetMiddleware: [],
-      },
-    },
-    redis: {
-      host: '127.0.0.1', 
-      port: 6379, 
-      db: 0,
-    },
-  };
-
-  config.view = {
-    mapping: {
-      '.html': 'nunjucks',
-    },
-  };
-  
   // 流媒体配置
   config.mediaServer = {
     rtmp: {
@@ -149,7 +135,58 @@ module.exports = appInfo => {
   };
   var nms = new NodeMediaServer(config.mediaServer)
   nms.run();
+    
+  // websocket配置
+  config.io = {
+    init: {
+      wsEngine: 'ws',
+    }, 
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+    },
+    redis: {
+      host: '127.0.0.1', 
+      port: 6379, 
+      db: 0,
+    },
+  };
+
+  // 模版引擎配置
+  config.view = {
+    mapping: {
+      '.html': 'nunjucks',
+    },
+  };
   
+  // session配置
+  config.session = {
+    renew: true,
+    key: 'EGG_SESS',
+    maxAge: 24 * 3600 * 1000 * 30, // 1 天
+    httpOnly: true,
+    encrypt: true,
+  }
+
+  // 文件上传配置
+  config.multipart = {
+    fileSize: '50mb',
+    mode: 'stream',
+    fileExtensions: [
+      '.xls',
+      '.txt',
+      '.jpg',
+      '.JPG',
+      '.png',
+      '.PNG',
+      '.gif',
+      '.GIF',
+      '.jpeg',
+      '.JPEG',
+    ], // 上传的文件格式
+  }
   return {
     ...config,
     ...userConfig,
