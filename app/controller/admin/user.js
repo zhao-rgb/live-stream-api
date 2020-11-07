@@ -136,7 +136,7 @@ class UserController extends Controller {
 
 
     // 验证用户是否已经存在
-    if (await app.model.user.findOne({
+    if (await app.model.User.findOne({
       where: { username },
     })) {
       ctx.throw(400, '用户名已存在');
