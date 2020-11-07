@@ -91,4 +91,15 @@ module.exports = app => {
   router.get('/admin/gift/delete/:id', controller.admin.gift.delete);
   // 更新礼物数据接口
   router.post('/admin/gift/:id', controller.admin.gift.update);
+
+  // 直播间模块（列表）路由
+  router.get('/admin/live', controller.admin.live.index);
+  // 查看指定直播间路由
+  router.get('/admin/live/look/:id', controller.admin.live.look);
+  // 查看直播间礼物路由
+  router.get('/admin/live/gift/:id', controller.admin.live.gift);
+  // 查看直播间弹幕路由
+  router.get('/admin/live/comment/:id', controller.admin.live.comment);
+  // 查看已结束的直播间
+  router.get('/admin/live/close/:id', controller.admin.live.closelive);
 };
