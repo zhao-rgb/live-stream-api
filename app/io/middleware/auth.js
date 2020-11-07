@@ -1,8 +1,6 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 'use strict';
 
-const PREFIX = 'room'; s;
+const PREFIX = 'room';
 
 module.exports = () => {
   return async (ctx, next) => {
