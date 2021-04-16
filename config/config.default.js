@@ -65,9 +65,12 @@ module.exports = appInfo => {
   // 数据库配置
   config.sequelize = {
     dialect: 'mysql',
-    host: '127.0.0.1',
+    // host: '127.0.0.1',
+    // username: 'root',
+    // password: 'root',
+    host: '121.196.104.253',
     username: 'root',
-    password: 'root',
+    password: 'abc.123',
     port: 3306,
     database: 'live_stream',
     // 中国时区
@@ -108,7 +111,8 @@ module.exports = appInfo => {
   config.redis = {
     client: {
       port: 6379, // Redis port
-      host: '127.0.0.1', // Redis host
+      // host: '127.0.0.1', // Redis host
+      host: '121.196.104.253', // Redis host
       password: '',
       db: 2,
     },
@@ -148,7 +152,7 @@ module.exports = appInfo => {
       },
     },
     redis: {
-      host: '127.0.0.1', 
+      host: '121.196.104.253', 
       port: 6379, 
       db: 0,
     },

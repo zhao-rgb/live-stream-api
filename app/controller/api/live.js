@@ -102,6 +102,7 @@ class LiveController extends Controller {
     const limit = 10;
     const offset = (page - 1) * limit;
     const rows = await app.model.Live.findAll({
+      order: [[ 'id', 'DESC' ]],
       limit,
       offset,
     });

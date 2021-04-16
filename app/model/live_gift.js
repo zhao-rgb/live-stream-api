@@ -4,7 +4,7 @@
 module.exports = app => {
   const { STRING, INTEGER, DATE, ENUM, TEXT } = app.Sequelize;
 
-  const LiveGift = app.model.define('Live_gift', {
+  const LiveGift = app.model.define('live_gift', {
     id: {
       type: INTEGER(20),
       primaryKey: true,

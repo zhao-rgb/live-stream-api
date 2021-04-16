@@ -102,4 +102,7 @@ module.exports = app => {
   router.get('/admin/live/comment/:id', controller.admin.live.comment);
   // 查看已结束的直播间
   router.get('/admin/live/close/:id', controller.admin.live.closelive);
+
+  // 上传图片
+  router.post('/api/upload', controller.api.common.upload);
 };

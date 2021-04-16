@@ -73,7 +73,7 @@ class UserController extends Controller {
           },
           {
             title: '时间',
-            key: 'create_time',
+            key: 'created_time',
             width: 180,
             fixed: 'center',
           },
