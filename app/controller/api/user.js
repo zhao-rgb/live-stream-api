@@ -3,9 +3,7 @@
 
 const await = require('await-stream-ready/lib/await');
 
-
 const Controller = require('egg').Controller;
-
 
 class UserController extends Controller {
   // 注册
@@ -33,14 +31,11 @@ class UserController extends Controller {
       },
     });
 
-
     const { username, password, repassword } = ctx.request.body;
-
 
     if (password !== repassword) {
       ctx.throw(422, '密码和确认密码不一致');
     }
-
 
     // 验证用户是否已经存在
     if (
@@ -53,21 +48,17 @@ class UserController extends Controller {
       ctx.throw(400, '该用户名已存在');
     }
 
-
     const user = await app.model.User.create({
       username,
       password,
     });
 
-
     if (!user) {
       ctx.throw(400, '创建用户失败');
     }
 
-
     ctx.apiSuccess(user);
   }
-
 
   // 登录
   async login() {
@@ -86,9 +77,7 @@ class UserController extends Controller {
       },
     });
 
-
     const { username, password } = ctx.request.body;
-
 
     let user = await app.model.User.findOne({
       where: {
@@ -96,32 +85,25 @@ class UserController extends Controller {
       },
     });
 
-
     if (!user) {
       ctx.throw(400, '该用户不存在');
     }
 
-
     // 验证密码
     await ctx.checkPassword(password, user.password);
 
-
     user = JSON.parse(JSON.stringify(user));
 
-
     console.log(user);
-
 
     // 生成token
     user.token = ctx.getToken(user);
     delete user.password;
 
-
     // 加入到存储中
     if (!(await this.service.cache.set('user_' + user.id, user.token))) {
       ctx.throw(400, '登录失败');
     }
-
 
     ctx.apiSuccess(user);
   }
@@ -135,7 +117,6 @@ class UserController extends Controller {
       ctx.throw(400, '退出登录失败');
     }
     ctx.apiSuccess('ok');
-
   }
 
   // 获取当前用户信息
@@ -191,13 +172,20 @@ class UserController extends Controller {
     user.token = ctx.getToken(user);
     delete user.password;
 
-
     // 加入到存储中
     if (!(await this.service.cache.set('user_' + user.id, user.token))) {
       ctx.throw(400, '登录失败');
     }
     ctx.apiSuccess(user);
   }
+
+  // // 直播间金币充值
+  // async chongzhi() {
+  //   const { ctx } = this;
+  //   let user = JSON.parse(JSON.stringify(ctx.authUser));
+  //   delete user.password;
+  //   ctx.apiSuccess(user);
+  // }
 }
 
 module.exports = UserController;

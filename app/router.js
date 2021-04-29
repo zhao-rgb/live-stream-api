@@ -38,6 +38,8 @@ module.exports = app => {
   router.post('/api/phoneLogin', controller.api.user.phoneLogin);
   // 发送手机验证码
   router.post('/api/sendcode', controller.api.sms.sendCode);
+  // // 直播间金币充值
+  // router.get('/api/ll', controller.api.user.chongzhi);
 
 
   // 后台相关路由配置

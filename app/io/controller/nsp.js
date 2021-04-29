@@ -254,7 +254,7 @@ class NspController extends Controller {
     const socket = ctx.socket;
     const id = socket.id;
 
-    let { live_id, token, gift_id } = message;
+    let { live_id, token, gift_id, num_ber } = message;
 
     // 验证用户token
     let user = await this.checkToken(token);
@@ -289,7 +289,7 @@ class NspController extends Controller {
     }
 
     // 扣除金币
-    user.coin -= gift.coin;
+    user.coin -= num_ber * gift.coin;
     await user.save();
 
     // 写入到礼物记录表
@@ -305,7 +305,7 @@ class NspController extends Controller {
         id: live_id,
       },
     });
-    live.coin += gift.coin;
+    live.coin += num_ber * gift.coin;
     live.save();
 
     // 推送消息到直播间
@@ -315,9 +315,10 @@ class NspController extends Controller {
       gift_name: gift.name,
       gift_image: gift.image,
       gift_coin: gift.coin,
-      num: 1,
+      num: num_ber,
     });
   }
+
 }
 
 module.exports = NspController;
