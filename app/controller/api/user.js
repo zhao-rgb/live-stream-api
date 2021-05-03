@@ -158,13 +158,14 @@ class UserController extends Controller {
     }
     // 如果查不到，直接注册写入新数据
     if (!user) {
-      // user = await app.model.User.create({
-      //   phone: phone,
-      //   password: '123123',
-      //   avatar: '',
-      //   coin: 0,
-      // })
-      ctx.throw(400, '该用户不存在');
+      user = await app.model.User.create({
+        phone,
+        username: phone,
+        password: '123123',
+        avatar: '',
+        coin: 0,
+      });
+      // ctx.throw(400, '该用户不存在');
     }
     user = JSON.parse(JSON.stringify(user));
     console.log(user);
@@ -179,13 +180,34 @@ class UserController extends Controller {
     ctx.apiSuccess(user);
   }
 
-  // // 直播间金币充值
-  // async chongzhi() {
-  //   const { ctx } = this;
-  //   let user = JSON.parse(JSON.stringify(ctx.authUser));
-  //   delete user.password;
-  //   ctx.apiSuccess(user);
-  // }
+  // 直播间金币充值
+  async chongzhi() {
+    const { ctx, app } = this;
+    const { id, coin } = ctx.request.body;
+    const user = await app.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+    user.coin += coin;
+    await user.save();
+    ctx.apiSuccess('ok');
+  }
+
+
+  // 更换用户头像
+  async avatar() {
+    const { ctx, app } = this;
+    const { id, url } = ctx.request.body;
+    const user = await app.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+    user.avatar = url;
+    await user.save();
+    ctx.apiSuccess('ok');
+  }
 }
 
 module.exports = UserController;

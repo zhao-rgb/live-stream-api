@@ -38,8 +38,8 @@ module.exports = app => {
   router.post('/api/phoneLogin', controller.api.user.phoneLogin);
   // 发送手机验证码
   router.post('/api/sendcode', controller.api.sms.sendCode);
-  // // 直播间金币充值
-  // router.get('/api/ll', controller.api.user.chongzhi);
+  // 直播间金币充值
+  router.post('/api/coin', controller.api.user.chongzhi);
 
 
   // 后台相关路由配置
@@ -107,4 +107,6 @@ module.exports = app => {
 
   // 上传图片
   router.post('/api/upload', controller.api.common.upload);
+  // 更换用户头像
+  router.post('/api/reviseAvatar', controller.api.user.avatar);
 };
