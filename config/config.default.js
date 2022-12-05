@@ -68,7 +68,7 @@ module.exports = appInfo => {
     // host: '127.0.0.1',
     // username: 'root',
     // password: 'root',
-    host: '121.196.104.253',
+    host: '121.5.129.115',
     username: 'root',
     password: 'abc.123',
     port: 3306,
@@ -112,7 +112,7 @@ module.exports = appInfo => {
     client: {
       port: 6379, // Redis port
       // host: '127.0.0.1', // Redis host
-      host: '121.196.104.253', // Redis host
+      host: '121.5.129.115', // Redis host
       password: '',
       db: 2,
     },
@@ -152,7 +152,8 @@ module.exports = appInfo => {
       },
     },
     redis: {
-      host: '121.196.104.253', 
+      // host: '127.0.0.1', // Redis host
+      host: '121.5.129.115', 
       port: 6379, 
       db: 0,
     },

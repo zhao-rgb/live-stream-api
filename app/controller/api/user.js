@@ -162,7 +162,7 @@ class UserController extends Controller {
         phone,
         username: phone,
         password: '123123',
-        avatar: '',
+        avatar: 'https://kkkksslls.oss-cn-beijing.aliyuncs.com/gift/2.jpg',
         coin: 0,
       });
       // ctx.throw(400, '该用户不存在');
